@@ -1,0 +1,269 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #1a1a2e;
+    font-family: 'Press Start 2P', monospace;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#game-container {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(180deg, #0f0c29 0%, #1a1a2e 40%, #16213e 100%);
+}
+
+/* Header */
+#header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px;
+    background: rgba(0,0,0,0.3);
+    border-bottom: 3px solid #e94560;
+    z-index: 10;
+}
+
+#header h1 {
+    color: #e94560;
+    font-size: 18px;
+    text-shadow: 2px 2px 0 #000, 0 0 10px rgba(233,69,96,0.5);
+}
+
+#score-display {
+    display: flex;
+    gap: 24px;
+    color: #f5c842;
+    font-size: 12px;
+    text-shadow: 1px 1px 0 #000;
+}
+
+/* Play area */
+#play-area {
+    flex: 1;
+    display: flex;
+    min-height: 0;
+    position: relative;
+}
+
+#left-panel {
+    flex: 1.3;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 3px dashed rgba(233,69,96,0.3);
+}
+
+#critter-canvas {
+    width: 100%;
+    height: 100%;
+}
+
+#right-panel {
+    flex: 0.7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+#number-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    width: 100%;
+    max-width: 320px;
+}
+
+.number-btn {
+    aspect-ratio: 1;
+    border: 3px solid #533483;
+    border-radius: 12px;
+    background: linear-gradient(180deg, #2a1a5e 0%, #1a0a3e 100%);
+    color: #e0d0ff;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 24px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 0 0 8px rgba(160,120,255,0.6);
+    position: relative;
+    overflow: hidden;
+}
+
+.number-btn::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 40%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 100%);
+    border-radius: 9px 9px 0 0;
+}
+
+.number-btn:hover {
+    border-color: #e94560;
+    background: linear-gradient(180deg, #3a2a6e 0%, #2a1a5e 100%);
+    color: #fff;
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(233,69,96,0.3);
+}
+
+.number-btn:active {
+    transform: scale(0.95);
+}
+
+.number-btn.correct {
+    border-color: #4ecca3;
+    background: linear-gradient(180deg, #1a6e4e 0%, #0a4e2e 100%);
+    color: #4ecca3;
+    animation: correctPulse 0.5s ease;
+}
+
+.number-btn.wrong {
+    border-color: #e94560;
+    background: linear-gradient(180deg, #6e1a2e 0%, #4e0a1e 100%);
+    color: #e94560;
+    animation: wrongShake 0.5s ease;
+}
+
+@keyframes correctPulse {
+    0%, 100% { box-shadow: 0 0 0 rgba(78,204,163,0); }
+    50% { box-shadow: 0 0 30px rgba(78,204,163,0.6); }
+}
+
+@keyframes wrongShake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-8px); }
+    40% { transform: translateX(8px); }
+    60% { transform: translateX(-6px); }
+    80% { transform: translateX(6px); }
+}
+
+/* Bag area */
+#bag-area {
+    height: 120px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    border-top: 3px solid rgba(233,69,96,0.2);
+    background: rgba(0,0,0,0.2);
+}
+
+#bag-canvas {
+    width: 100%;
+    height: 100%;
+}
+
+/* Explosion canvas */
+#explosion-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100;
+    pointer-events: none;
+}
+
+/* Start / End screens */
+#start-screen, #end-screen {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(10,5,30,0.92);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    gap: 20px;
+}
+
+#start-screen h1, #end-screen h1 {
+    color: #e94560;
+    font-size: 32px;
+    text-shadow: 3px 3px 0 #000, 0 0 20px rgba(233,69,96,0.6);
+    animation: titleBounce 2s ease-in-out infinite;
+}
+
+#start-screen p, #end-screen p {
+    color: #c0b0e0;
+    font-size: 11px;
+    text-align: center;
+    line-height: 2;
+}
+
+#end-score {
+    color: #f5c842;
+    font-size: 16px;
+    text-shadow: 1px 1px 0 #000;
+}
+
+#start-btn, #restart-btn {
+    margin-top: 16px;
+    padding: 16px 40px;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 16px;
+    background: linear-gradient(180deg, #e94560 0%, #c0253e 100%);
+    color: #fff;
+    border: 3px solid #ff6b81;
+    border-radius: 8px;
+    cursor: pointer;
+    text-shadow: 1px 1px 0 #000;
+    transition: all 0.15s ease;
+}
+
+#start-btn:hover, #restart-btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 30px rgba(233,69,96,0.5);
+}
+
+@keyframes titleBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Floating stars background */
+#game-container::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+        radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 50% 10%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 70% 80%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 90% 40%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 15% 90%, rgba(255,255,255,0.2) 0%, transparent 100%),
+        radial-gradient(1px 1px at 85% 15%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(2px 2px at 45% 45%, rgba(255,255,255,0.2) 0%, transparent 100%),
+        radial-gradient(1px 1px at 60% 30%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 25% 50%, rgba(255,255,255,0.3) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+#header, #play-area, #bag-area {
+    position: relative;
+    z-index: 1;
+}

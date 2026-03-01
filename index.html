@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Count the Critters! - 8-Bit Counting Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <div id="header">
+            <h1>Count the Critters!</h1>
+            <div id="score-display">
+                <span id="level-label">Round <span id="level-num">1</span> / <span id="max-level">10</span></span>
+                <span id="score-label">Score: <span id="score">0</span></span>
+            </div>
+        </div>
+
+        <div id="play-area">
+            <div id="left-panel">
+                <canvas id="critter-canvas"></canvas>
+            </div>
+            <div id="right-panel">
+                <div id="number-grid"></div>
+            </div>
+        </div>
+
+        <div id="bag-area">
+            <canvas id="bag-canvas"></canvas>
+        </div>
+
+        <canvas id="explosion-canvas"></canvas>
+
+        <div id="start-screen">
+            <h1>Count the Critters!</h1>
+            <p>Count the cute critters on the left,<br>then click the matching number!</p>
+            <button id="start-btn">START GAME</button>
+        </div>
+
+        <div id="end-screen" class="hidden">
+            <h1 id="end-title">Amazing!</h1>
+            <p id="end-message">You counted them all!</p>
+            <p id="end-score">Final Score: 0</p>
+            <button id="restart-btn">PLAY AGAIN</button>
+        </div>
+    </div>
+    <script src="sprites.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
