@@ -1,0 +1,224 @@
+/* ---- Reset ---- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #0a0a1a;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  font-family: 'Courier New', Courier, monospace;
+  user-select: none;
+}
+
+/* ---- Game Canvas ---- */
+#game-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* ---- UI Overlay ---- */
+#ui-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* ---- HUD ---- */
+#hud {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  color: #ffe066;
+  font-size: 15px;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 0 #000;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, transparent 100%);
+}
+
+/* ---- Answer Panel (right side) ---- */
+#answer-panel {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 38%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 16px;
+  pointer-events: all;
+}
+
+#question-text {
+  color: #8888dd;
+  font-size: 12px;
+  letter-spacing: 4px;
+  text-shadow: 1px 1px 0 #000;
+}
+
+#button-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  width: 100%;
+  max-width: 200px;
+}
+
+/* ---- Answer Buttons ---- */
+.answer-btn {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  min-height: 56px;
+  max-height: 84px;
+  background: #181840;
+  color: #ffffff;
+  border: 3px solid #3a3a88;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 26px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 #000;
+  transition: background 0.08s, border-color 0.08s;
+  touch-action: manipulation;
+}
+
+.answer-btn:hover {
+  background: #252560;
+  border-color: #6666cc;
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 #000;
+}
+
+.answer-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 #000;
+}
+
+.answer-btn.disabled {
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.answer-btn.correct-flash {
+  border-color: #44ff88;
+  background: #003322;
+  pointer-events: none;
+}
+
+.answer-btn.shake {
+  animation: btn-shake 0.4s ease-out, btn-flash 0.4s ease-out;
+}
+
+@keyframes btn-shake {
+  0%, 100% { transform: translateX(0); }
+  15%       { transform: translateX(-6px); }
+  30%       { transform: translateX(6px); }
+  50%       { transform: translateX(-4px); }
+  70%       { transform: translateX(4px); }
+  85%       { transform: translateX(-2px); }
+}
+
+@keyframes btn-flash {
+  0%, 100%  { background: #181840; border-color: #3a3a88; }
+  25%       { background: #660000; border-color: #ff2222; }
+  60%       { background: #440000; border-color: #cc0000; }
+}
+
+/* ---- Screens (Start / Level Complete) ---- */
+#start-screen,
+#level-complete-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(5, 5, 20, 0.88);
+  z-index: 100;
+}
+
+#level-complete-screen.hidden {
+  display: none;
+}
+
+.screen-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 40px 56px;
+  background: #0d0d2a;
+  border: 4px solid #4444aa;
+  box-shadow: 8px 8px 0 #000, 0 0 40px rgba(100, 100, 255, 0.3);
+}
+
+.screen-title {
+  color: #ffe066;
+  font-size: clamp(32px, 5vw, 56px);
+  letter-spacing: 4px;
+  text-shadow: 3px 3px 0 #aa8800, 6px 6px 0 #000;
+}
+
+.screen-sub {
+  color: #8888cc;
+  font-size: clamp(12px, 2vw, 18px);
+  letter-spacing: 3px;
+}
+
+.screen-btn {
+  margin-top: 8px;
+  padding: 14px 40px;
+  background: #22aa44;
+  color: #000;
+  border: none;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: clamp(16px, 2.5vw, 22px);
+  font-weight: bold;
+  letter-spacing: 3px;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 #005522, 8px 8px 0 #000;
+  touch-action: manipulation;
+  transition: transform 0.08s, box-shadow 0.08s;
+}
+
+.screen-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 #005522, 10px 10px 0 #000;
+}
+
+.screen-btn:active {
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0 #005522;
+}
+
+/* ---- Responsive: small screens ---- */
+@media (max-width: 540px) {
+  #answer-panel {
+    width: 100%;
+    right: 0;
+    top: auto;
+    bottom: 16px;
+    transform: none;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 10px;
+  }
+  #button-grid {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 280px;
+  }
+}

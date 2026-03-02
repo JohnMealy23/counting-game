@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Count It! — 8-Bit Counting Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Main game canvas (background, characters, bag, particles) -->
+  <canvas id="game-canvas"></canvas>
+
+  <!-- HUD + answer buttons overlay -->
+  <div id="ui-overlay">
+    <header id="hud">
+      <span id="level-label">LEVEL 1</span>
+      <span id="score-label">SCORE: 0</span>
+      <span id="progress-label">0 / 5</span>
+    </header>
+
+    <div id="answer-panel">
+      <div id="question-text">HOW MANY?</div>
+      <div id="button-grid"></div>
+    </div>
+  </div>
+
+  <!-- Start screen -->
+  <div id="start-screen">
+    <div class="screen-box">
+      <div class="screen-title">COUNT IT!</div>
+      <div class="screen-sub">8-BIT COUNTING GAME</div>
+      <button class="screen-btn" id="start-btn">▶ PLAY</button>
+    </div>
+  </div>
+
+  <!-- Level complete screen -->
+  <div id="level-complete-screen" class="hidden">
+    <div class="screen-box">
+      <div class="screen-title" id="lc-title">LEVEL 1 CLEAR!</div>
+      <div class="screen-sub" id="lc-score">Score: 0</div>
+      <button class="screen-btn" id="lc-btn">▶ NEXT LEVEL</button>
+    </div>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
